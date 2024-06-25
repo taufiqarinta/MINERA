@@ -1,4 +1,4 @@
-package com.minera.minera.core.ui
+package com.minera.core.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

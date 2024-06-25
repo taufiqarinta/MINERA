@@ -1,22 +1,18 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-parcelize")
-    id("com.google.gms.google-services")
+    alias(libs.plugins.googleGmsGoogleServices)
 }
 
 android {
-    namespace = "com.minera.minera"
+    namespace = "com.minera.core"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.minera.minera"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -28,9 +24,6 @@ android {
             )
         }
     }
-    buildFeatures {
-        viewBinding = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -41,19 +34,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    // Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -62,13 +51,7 @@ dependencies {
     // Koin
     implementation("io.insert-koin:koin-android:3.5.3")
 
-    // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-
-    // Circle Image View
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    // DataStore
+    api(libs.androidx.datastore.preferences)
 }

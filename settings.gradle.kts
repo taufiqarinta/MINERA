@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MINERA"
 include(":app")
+include(":core")

@@ -7,13 +7,18 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.minera.minera.R
-import com.minera.minera.core.ui.ViewPagerAdapter
+import com.minera.core.ui.ViewPagerAdapter
 import com.minera.minera.databinding.ActivityAuthBinding
+import com.minera.minera.presentation.signin.SignInFragment
+import com.minera.minera.presentation.signup.SignUpFragment
+import com.minera.minera.utils.AppLoadingListener
+import com.minera.minera.utils.hide
+import com.minera.minera.utils.show
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity(), AppLoadingListener {
 
     private var _binding: ActivityAuthBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +26,7 @@ class AuthActivity : AppCompatActivity() {
         _binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.progressCircular.progress.translationZ = 10f
         tabLayoutSetup()
         viewPagerSetup()
     }
@@ -77,6 +83,11 @@ class AuthActivity : AppCompatActivity() {
                 // Do nothing
             }
         })
+    }
+
+    override fun isLoading(isLoading: Boolean) {
+        if (isLoading) binding.progressCircular.progress.show()
+        else binding.progressCircular.progress.hide()
     }
 
     override fun onDestroy() {
